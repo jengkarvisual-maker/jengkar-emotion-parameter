@@ -16,6 +16,7 @@ const teamSeeds = [
       profile: "3/5",
       signature: "Satisfaction",
       notSelfTheme: "Frustration",
+      ravechartFileUrl: "/uploads/ravecharts/1775963792899-95fdb131-79e8-40da-bbc7-c089d6690e53.jpg",
       decisionStyle:
         "Responding after feeling a clear body yes instead of rushing to force an answer.",
       triggerNotes:
@@ -36,6 +37,7 @@ const teamSeeds = [
       profile: "2/4",
       signature: "Success",
       notSelfTheme: "Bitterness",
+      ravechartFileUrl: "/uploads/ravecharts/1775968517119-c1edaff1-d83e-4eb9-b857-78c677d19b42.jpg",
       decisionStyle:
         "Waiting for emotional clarity and trusted invitations before committing to important choices.",
       triggerNotes:
@@ -56,6 +58,7 @@ const teamSeeds = [
       profile: "1/3",
       signature: "Satisfaction",
       notSelfTheme: "Frustration",
+      ravechartFileUrl: "/uploads/ravecharts/1775967296805-4b0860c9-a02a-4693-ba1f-a9731d6fe1c3.jpg",
       decisionStyle:
         "Checking whether the body still feels engaged after the first impulse to move quickly.",
       triggerNotes:
@@ -76,6 +79,7 @@ const teamSeeds = [
       profile: "4/6",
       signature: "Success",
       notSelfTheme: "Bitterness",
+      ravechartFileUrl: "/uploads/ravecharts/1775969143511-cfcc328b-cf69-4f87-a2f8-58926586d0ce.jpg",
       decisionStyle:
         "Listening for the quiet instinctive cue before agreeing to take on more.",
       triggerNotes:
@@ -96,6 +100,7 @@ const teamSeeds = [
       profile: "5/1",
       signature: "Satisfaction",
       notSelfTheme: "Frustration",
+      ravechartFileUrl: "/uploads/ravecharts/1775967849263-8ae3f97b-b787-4930-aa79-d31b8942210b.jpg",
       decisionStyle:
         "Giving emotional waves time to settle before making firm commitments.",
       triggerNotes:
@@ -116,6 +121,7 @@ const teamSeeds = [
       profile: "6/2",
       signature: "Peace",
       notSelfTheme: "Anger",
+      ravechartFileUrl: "/uploads/ravecharts/1775969306953-6ccb7e84-1ba3-4451-99a5-103cd2de87a5.jpg",
       decisionStyle:
         "Informing others and allowing the emotional tone to settle before acting at full speed.",
       triggerNotes:
@@ -136,6 +142,7 @@ const teamSeeds = [
       profile: "4/6",
       signature: "Satisfaction",
       notSelfTheme: "Frustration",
+      ravechartFileUrl: "/uploads/ravecharts/1775968260867-428fae86-b33c-4a9b-aace-5f3749330a3d.png",
       decisionStyle:
         "Responding once the body feels grounded rather than saying yes too quickly.",
       triggerNotes:
@@ -156,6 +163,7 @@ const teamSeeds = [
       profile: "1/3",
       signature: "Surprise",
       notSelfTheme: "Disappointment",
+      ravechartFileUrl: "/uploads/ravecharts/1775968039025-6fa14524-7417-424f-b2bf-24fde20b62ee.jpg",
       decisionStyle:
         "Letting bigger decisions breathe over time and observing the surrounding environment first.",
       triggerNotes:
@@ -176,6 +184,7 @@ const teamSeeds = [
       profile: "2/5",
       signature: "Satisfaction",
       notSelfTheme: "Frustration",
+      ravechartFileUrl: "/uploads/ravecharts/1775968837330-b5b27141-92b8-4d1d-a1f7-0ed42071453c.png",
       decisionStyle:
         "Checking whether the immediate response still feels true after the first burst of energy.",
       triggerNotes:

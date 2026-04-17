@@ -54,7 +54,8 @@ Aplikasi ini **bukan** produk medis, psikologis, atau diagnostik.
 Create a local `.env` file based on `.env.example`.
 
 ```env
-DATABASE_URL="postgresql://postgres:[YOUR_DB_PASSWORD]@db.[YOUR_PROJECT_REF].supabase.co:5432/postgres"
+DATABASE_URL="postgresql://postgres.[YOUR_PROJECT_REF]:[YOUR_DB_PASSWORD]@[YOUR_REGION].pooler.supabase.com:6543/postgres?pgbouncer=true"
+DIRECT_URL="postgresql://postgres.[YOUR_PROJECT_REF]:[YOUR_DB_PASSWORD]@[YOUR_REGION].pooler.supabase.com:5432/postgres"
 AUTH_SECRET="replace-with-a-long-random-string"
 APP_URL="http://localhost:3000"
 NEXT_PUBLIC_SUPABASE_URL="https://[YOUR_PROJECT_REF].supabase.co"
@@ -66,6 +67,8 @@ UPLOAD_DIR="./public/uploads"
 ### Notes
 
 - `DATABASE_URL` is required for Prisma commands and runtime database access.
+- `DATABASE_URL` should use the Supabase transaction pooler for runtime traffic, with `?pgbouncer=true`.
+- `DIRECT_URL` should use the Supabase session pooler for Prisma CLI commands such as `db push`.
 - `AUTH_SECRET` should be a long random string in non-local environments.
 - `NEXT_PUBLIC_SUPABASE_URL` is used to build public URLs for uploaded ravechart files.
 - `SUPABASE_SERVICE_ROLE_KEY` is used only on the server to upload and remove files from Supabase Storage. Never expose it in the browser.
@@ -134,6 +137,7 @@ This project was verified successfully with that fallback flow as well.
 1. Create a public Supabase Storage bucket named `ravecharts`.
 2. Fill Vercel project environment variables with:
    - `DATABASE_URL`
+   - `DIRECT_URL`
    - `AUTH_SECRET`
    - `APP_URL`
    - `NEXT_PUBLIC_SUPABASE_URL`
