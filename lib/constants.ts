@@ -1,7 +1,8 @@
 import type { AlignmentFeeling, DominantEmotion, Role, SessionType } from "@/lib/types";
 
 export const APP_NAME = "JEPAT";
-export const APP_DOMAIN = "https://rumahjengkar.com";
+export const APP_DOMAIN = "https://jepat.rumahjengkar.com";
+export const APP_PORTAL_DOMAIN = "https://rumahjengkar.com";
 
 export const DEMO_OWNER = {
   email: "owner@emotiontracker.local",
@@ -81,7 +82,7 @@ export const INTERNAL_APP_LINKS: InternalAppLink[] = [
   {
     name: "JEPAT",
     href: APP_DOMAIN,
-    domain: "rumahjengkar.com",
+    domain: "jepat.rumahjengkar.com",
     description: "Pelacakan emosi, Human Design, dan rekomendasi reflektif tim.",
     status: "active",
   },
