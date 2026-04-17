@@ -2,8 +2,8 @@
 
 JEPAT adalah aplikasi web internal V1 untuk tim kecil yang digunakan mencatat check-in emosi harian secara manual, membandingkan polanya dengan ringkasan Human Design tiap anggota yang dikelola manual, serta meninjau rekomendasi yang lembut dan reflektif.
 
-This project is intentionally positioned as a self-awareness and team wellbeing tool.
-It is **not** a medical, psychological, or diagnostic product.
+Produk ini diposisikan sebagai alat self-awareness dan wellbeing tim.
+Aplikasi ini **bukan** produk medis, psikologis, atau diagnostik.
 
 ## Stack
 
@@ -35,7 +35,8 @@ It is **not** a medical, psychological, or diagnostic product.
 - The app uses reflective, non-clinical recommendation language.
 - Human Design data is entered manually by the owner in V1.
 - There is no OCR, PDF interpretation, or AI chart analysis in this version.
-- File rave chart yang diunggah disimpan di filesystem server pada `public/uploads`.
+- File rave chart lama masih tersedia di `public/uploads`.
+- Upload ravechart baru dapat diarahkan ke Supabase Storage untuk deployment online.
 
 ## Routes
 
@@ -53,9 +54,12 @@ It is **not** a medical, psychological, or diagnostic product.
 Create a local `.env` file based on `.env.example`.
 
 ```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/jepat?schema=public"
+DATABASE_URL="postgresql://postgres:[YOUR_DB_PASSWORD]@db.[YOUR_PROJECT_REF].supabase.co:5432/postgres"
 AUTH_SECRET="replace-with-a-long-random-string"
 APP_URL="http://localhost:3000"
+NEXT_PUBLIC_SUPABASE_URL="https://[YOUR_PROJECT_REF].supabase.co"
+SUPABASE_SERVICE_ROLE_KEY="replace-with-your-supabase-service-role-key"
+SUPABASE_STORAGE_BUCKET="ravecharts"
 UPLOAD_DIR="./public/uploads"
 ```
 
@@ -63,9 +67,12 @@ UPLOAD_DIR="./public/uploads"
 
 - `DATABASE_URL` is required for Prisma commands and runtime database access.
 - `AUTH_SECRET` should be a long random string in non-local environments.
+- `NEXT_PUBLIC_SUPABASE_URL` is used to build public URLs for uploaded ravechart files.
+- `SUPABASE_SERVICE_ROLE_KEY` is used only on the server to upload and remove files from Supabase Storage. Never expose it in the browser.
+- `SUPABASE_STORAGE_BUCKET` should point to a public bucket, for example `ravecharts`.
 - `UPLOAD_DIR` defaults to `./public/uploads`.
 - Existing ravechart files currently live in `public/uploads/ravecharts` so they can remain visible when the project is moved or published.
-- For multi-instance or serverless production deployments, replace the local upload strategy with persistent object storage such as Supabase Storage or Vercel Blob.
+- For multi-instance or serverless production deployments, use persistent object storage such as Supabase Storage or Vercel Blob.
 
 ## Setup
 
@@ -121,6 +128,24 @@ npm run start
 ```
 
 This project was verified successfully with that fallback flow as well.
+
+## Online deployment checklist
+
+1. Create a public Supabase Storage bucket named `ravecharts`.
+2. Fill Vercel project environment variables with:
+   - `DATABASE_URL`
+   - `AUTH_SECRET`
+   - `APP_URL`
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `SUPABASE_STORAGE_BUCKET`
+3. Point `DATABASE_URL` to your Supabase Postgres connection string.
+4. Run `npx prisma db push` against the Supabase database.
+5. Run `npm run prisma:seed` once if you want the demo accounts on the online environment.
+6. Deploy to Vercel from the linked GitHub repository.
+
+Bucket note:
+`getPublicUrl()` from the Supabase SDK only works for public buckets, so `ravecharts` needs to be public according to the Supabase docs.
 
 ## Production build
 
