@@ -41,7 +41,7 @@ export default async function HomePage() {
   }
 
   const appDomain = new URL(APP_DOMAIN).host;
-  const activeApps = INTERNAL_APP_LINKS.filter((app) => app.href);
+  const activeApps = INTERNAL_APP_LINKS.filter((app) => app.status === "active");
 
   return (
     <main className="relative min-h-screen px-4 py-8 md:px-8 md:py-12">
