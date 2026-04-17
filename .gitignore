@@ -26,3 +26,5 @@ PGDATA3/
 desktop.ini
 
 .vercel
+*.tsbuildinfo
+finance-app/
