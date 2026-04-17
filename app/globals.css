@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 44 38% 96%;
+    --foreground: 164 34% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 164 34% 13%;
+    --primary: 166 40% 26%;
+    --primary-foreground: 48 36% 97%;
+    --secondary: 38 46% 88%;
+    --secondary-foreground: 166 38% 22%;
+    --muted: 45 35% 92%;
+    --muted-foreground: 165 14% 36%;
+    --accent: 32 72% 90%;
+    --accent-foreground: 163 33% 18%;
+    --destructive: 0 72% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 155 45% 34%;
+    --success-foreground: 0 0% 100%;
+    --warn: 24 80% 46%;
+    --warn-foreground: 0 0% 100%;
+    --border: 165 18% 82%;
+    --input: 165 18% 82%;
+    --ring: 166 40% 26%;
+    --radius-xl: 1.5rem;
+    --radius-lg: 1rem;
+    --radius-md: 0.75rem;
+    --radius-sm: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(circle at top left, rgba(255, 208, 153, 0.45), transparent 30%),
+      radial-gradient(circle at top right, rgba(125, 171, 158, 0.25), transparent 25%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(247, 242, 233, 0.95));
+    min-height: 100vh;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
