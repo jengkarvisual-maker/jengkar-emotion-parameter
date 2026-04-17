@@ -95,10 +95,10 @@ export const INTERNAL_APP_LINKS: InternalAppLink[] = [
   },
   {
     name: "Jengkar KPI",
-    href: "https://jengkar-ops.vercel.app",
+    href: "https://ops.rumahjengkar.com",
     domain: "ops.rumahjengkar.com",
     description:
-      "Fondasi aplikasi operasional untuk SOP, KPI, bonus tahunan, dan review tim. Domain custom sedang menunggu aktivasi DNS.",
+      "Fondasi aplikasi operasional untuk SOP, KPI, bonus tahunan, dan review tim. Domain custom sudah diarahkan dan mungkin butuh beberapa saat untuk sinkron penuh di semua jaringan.",
     status: "setup",
   },
 ];
