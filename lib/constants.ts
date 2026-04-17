@@ -87,10 +87,10 @@ export const INTERNAL_APP_LINKS: InternalAppLink[] = [
   },
   {
     name: "Finance",
-    href: "https://jengkar-finance-nine.vercel.app/login",
+    href: "https://finance.rumahjengkar.com",
     domain: "finance.rumahjengkar.com",
-    description: "Aplikasi keuangan tim. Subdomain khusus sudah disiapkan di Vercel.",
-    status: "setup",
+    description: "Aplikasi keuangan tim dengan domain khusus untuk transaksi, laporan, dan arus kas.",
+    status: "active",
   },
   {
     name: "SOP + KPI + Bonus",
