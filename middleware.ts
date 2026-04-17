@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-import { SESSION_COOKIE_NAME } from "@/lib/session";
+const SESSION_COOKIE_NAME = "emotion-tracker-session";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
