@@ -1,6 +1,14 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  BriefcaseBusiness,
+  ExternalLink,
+  HeartPulse,
+  WalletCards,
+  type LucideIcon,
+} from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { getSession } from "@/lib/auth";
@@ -26,6 +34,52 @@ function getStatusLabel(status: "active" | "setup" | "planned") {
   }
 }
 
+function getAppPresentation(appName: string): {
+  Icon: LucideIcon;
+  category: string;
+  audience: string;
+  accessNote: string;
+  accentClassName: string;
+} {
+  switch (appName) {
+    case "JEPAT":
+      return {
+        Icon: HeartPulse,
+        category: "Wellbeing Tracker",
+        audience: "Owner dan member",
+        accessNote: "Masuk untuk log emosi dan Human Design",
+        accentClassName:
+          "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+      };
+    case "Finance":
+      return {
+        Icon: WalletCards,
+        category: "Keuangan Internal",
+        audience: "Owner dan admin keuangan",
+        accessNote: "Masuk untuk transaksi, arus kas, dan laporan",
+        accentClassName:
+          "border-sky-500/20 bg-sky-500/10 text-sky-700 dark:text-sky-300",
+      };
+    case "Jengkar KPI":
+      return {
+        Icon: BriefcaseBusiness,
+        category: "Operasional Tim",
+        audience: "Owner, admin, dan karyawan",
+        accessNote: "Masuk langsung ke login atau dashboard KPI",
+        accentClassName:
+          "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+      };
+    default:
+      return {
+        Icon: BadgeCheck,
+        category: "Aplikasi Internal",
+        audience: "Tim internal",
+        accessNote: "Masuk melalui subdomain aplikasi",
+        accentClassName: "border-primary/20 bg-primary/10 text-primary",
+      };
+  }
+}
+
 export default async function HomePage() {
   const headerStore = await headers();
   const host = normalizeHost(
@@ -42,6 +96,7 @@ export default async function HomePage() {
 
   const appDomain = new URL(APP_DOMAIN).host;
   const activeApps = INTERNAL_APP_LINKS.filter((app) => app.status === "active");
+  const quickAccessApps = activeApps.filter((app) => app.href);
 
   return (
     <main className="relative min-h-screen px-4 py-8 md:px-8 md:py-12">
@@ -64,35 +119,23 @@ export default async function HomePage() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <a
-                  className={buttonVariants({
-                    size: "lg",
-                  })}
-                  href={APP_DOMAIN}
-                >
-                  Buka JEPAT
-                  <ArrowRight className="ml-2 size-4" />
-                </a>
-                <a
-                  className={buttonVariants({
-                    size: "lg",
-                    variant: "outline",
-                  })}
-                  href="https://finance.rumahjengkar.com"
-                >
-                  Buka Finance
-                  <ExternalLink className="ml-2 size-4" />
-                </a>
-                <a
-                  className={buttonVariants({
-                    size: "lg",
-                    variant: "outline",
-                  })}
-                  href="https://ops.rumahjengkar.com"
-                >
-                  Buka Jengkar KPI
-                  <ExternalLink className="ml-2 size-4" />
-                </a>
+                {quickAccessApps.map((app, index) => (
+                  <a
+                    className={buttonVariants({
+                      size: "lg",
+                      variant: index === 0 ? "default" : "outline",
+                    })}
+                    href={app.href ?? "#"}
+                    key={app.name}
+                  >
+                    Buka {app.name}
+                    {index === 0 ? (
+                      <ArrowRight className="ml-2 size-4" />
+                    ) : (
+                      <ExternalLink className="ml-2 size-4" />
+                    )}
+                  </a>
+                ))}
               </div>
             </div>
 
@@ -134,6 +177,7 @@ export default async function HomePage() {
 
           <section className="grid gap-4 lg:grid-cols-3">
             {INTERNAL_APP_LINKS.map((app) => {
+              const presentation = getAppPresentation(app.name);
               const badgeStyles =
                 app.status === "active"
                   ? "border-success/25 bg-success/10 text-success"
@@ -152,9 +196,24 @@ export default async function HomePage() {
                   key={app.name}
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <div className="space-y-2">
-                      <p className="text-lg font-semibold text-foreground">{app.name}</p>
-                      <p className="font-mono text-xs text-muted-foreground">{app.domain}</p>
+                    <div className="space-y-3">
+                      <div
+                        className={cn(
+                          "flex size-11 items-center justify-center rounded-2xl border",
+                          presentation.accentClassName,
+                        )}
+                      >
+                        <presentation.Icon className="size-5" />
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="text-lg font-semibold text-foreground">{app.name}</p>
+                          <span className="rounded-full border border-border/70 bg-background/80 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                            {presentation.category}
+                          </span>
+                        </div>
+                        <p className="font-mono text-xs text-muted-foreground">{app.domain}</p>
+                      </div>
                     </div>
                     <span
                       className={cn(
@@ -168,6 +227,18 @@ export default async function HomePage() {
                   <p className="mt-4 text-sm leading-6 text-muted-foreground">
                     {app.description}
                   </p>
+                  <div className="mt-5 grid gap-2 rounded-2xl border border-border/70 bg-background/70 p-4 text-xs">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-muted-foreground">Pengguna utama</span>
+                      <span className="font-medium text-foreground">{presentation.audience}</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-muted-foreground">Akses</span>
+                      <span className="text-right font-medium text-foreground">
+                        {presentation.accessNote}
+                      </span>
+                    </div>
+                  </div>
                   <div className="mt-6 pt-2">
                     {app.href ? (
                       <a
