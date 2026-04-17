@@ -24,3 +24,5 @@ POSTGRESPW.TXT
 .pgdata-local/
 PGDATA3/
 desktop.ini
+
+.vercel
