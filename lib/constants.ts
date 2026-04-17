@@ -98,7 +98,7 @@ export const INTERNAL_APP_LINKS: InternalAppLink[] = [
     href: "https://ops.rumahjengkar.com",
     domain: "ops.rumahjengkar.com",
     description:
-      "Fondasi aplikasi operasional untuk SOP, KPI, bonus tahunan, dan review tim. Domain custom sudah diarahkan dan mungkin butuh beberapa saat untuk sinkron penuh di semua jaringan.",
-    status: "setup",
+      "Aplikasi operasional untuk SOP, KPI, bonus tahunan, dan review tim. Akses masuk diarahkan langsung ke login atau dashboard melalui subdomain ini.",
+    status: "active",
   },
 ];

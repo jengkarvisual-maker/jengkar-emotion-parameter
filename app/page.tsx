@@ -83,6 +83,16 @@ export default async function HomePage() {
                   Buka Finance
                   <ExternalLink className="ml-2 size-4" />
                 </a>
+                <a
+                  className={buttonVariants({
+                    size: "lg",
+                    variant: "outline",
+                  })}
+                  href="https://ops.rumahjengkar.com"
+                >
+                  Buka Jengkar KPI
+                  <ExternalLink className="ml-2 size-4" />
+                </a>
               </div>
             </div>
 
@@ -105,6 +115,16 @@ export default async function HomePage() {
                     <p className="mt-1 font-mono text-sm text-foreground">{appDomain}</p>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">
                       Semua route aplikasi JEPAT tetap berjalan di subdomain ini.
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-border/70 bg-background/80 p-4">
+                    <p className="text-sm font-medium text-foreground">Aplikasi Jengkar KPI</p>
+                    <p className="mt-1 font-mono text-sm text-foreground">
+                      ops.rumahjengkar.com
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                      Subdomain ini langsung membuka halaman login atau dashboard,
+                      tanpa landing page terpisah.
                     </p>
                   </div>
                 </div>
@@ -185,8 +205,8 @@ export default async function HomePage() {
           <div className="rounded-2xl border border-border/70 bg-card/70 p-4">
             <p className="font-medium text-foreground">Status saat ini</p>
             <p className="mt-2 leading-6">
-              {activeApps.length} aplikasi sudah aktif, dan aplikasi operasional
-              sedang dipersiapkan agar struktur tiga aplikasi Rumah Jengkar lengkap.
+              {activeApps.length} aplikasi sudah aktif dan seluruh struktur tiga
+              aplikasi Rumah Jengkar kini bisa diakses dari portal utama ini.
             </p>
           </div>
         </section>
