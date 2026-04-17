@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/session";
+import { SESSION_COOKIE_NAME } from "@/lib/session";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -15,39 +15,29 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
-  const session = token ? await verifySessionToken(token) : null;
+  const hasSessionCookie = Boolean(request.cookies.get(SESSION_COOKIE_NAME)?.value);
 
   if (pathname === "/") {
     return NextResponse.redirect(
-      new URL(session ? "/dashboard" : "/login", request.url),
+      new URL(hasSessionCookie ? "/dashboard" : "/login", request.url),
     );
   }
 
   if (pathname === "/login") {
-    if (session) {
+    if (hasSessionCookie) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
 
     return NextResponse.next();
   }
 
-  if (!session) {
+  if (!hasSessionCookie) {
     return NextResponse.redirect(new URL("/login", request.url));
-  }
-
-  if (session.role === "MEMBER" && !session.teamMemberId) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-
-  if (session.role !== "OWNER" && pathname.startsWith("/members")) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  runtime: "nodejs",
   matcher: ["/((?!_next/static|_next/image).*)"],
 };
