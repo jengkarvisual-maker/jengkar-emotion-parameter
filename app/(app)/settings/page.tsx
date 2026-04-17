@@ -1,8 +1,11 @@
+import Link from "next/link";
+
 import { getAuthenticatedUser } from "@/lib/actions/auth";
 import { PasswordForm } from "@/components/forms/password-form";
 import { PageHeader } from "@/components/shared/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { INTERNAL_APP_LINKS } from "@/lib/constants";
 
 export default async function SettingsPage() {
   const user = await getAuthenticatedUser();
@@ -41,6 +44,54 @@ export default async function SettingsPage() {
           </CardContent>
         </Card>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Jaringan aplikasi Rumah Jengkar</CardTitle>
+        </CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {INTERNAL_APP_LINKS.map((app) => {
+            const statusVariant =
+              app.status === "active"
+                ? "success"
+                : app.status === "setup"
+                  ? "warn"
+                  : "outline";
+
+            const content = (
+              <>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="space-y-1">
+                    <p className="font-medium">{app.name}</p>
+                    <p className="text-xs text-muted-foreground">{app.domain}</p>
+                  </div>
+                  <Badge variant={statusVariant}>{getAppStatusLabel(app.status)}</Badge>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                  {app.description}
+                </p>
+              </>
+            );
+
+            return app.href ? (
+              <Link
+                key={app.name}
+                href={app.href}
+                className="rounded-2xl border border-border/70 bg-background/70 px-4 py-4 transition hover:border-primary/25 hover:bg-primary/5"
+              >
+                {content}
+              </Link>
+            ) : (
+              <div
+                key={app.name}
+                className="rounded-2xl border border-dashed border-border/70 bg-muted/20 px-4 py-4"
+              >
+                {content}
+              </div>
+            );
+          })}
+        </CardContent>
+      </Card>
     </div>
   );
 }
@@ -52,4 +103,15 @@ function DetailRow({ label, value }: { label: string; value: string }) {
       <Badge variant="outline">{value}</Badge>
     </div>
   );
+}
+
+function getAppStatusLabel(status: "active" | "setup" | "planned") {
+  switch (status) {
+    case "active":
+      return "Aktif";
+    case "setup":
+      return "Disiapkan";
+    case "planned":
+      return "Direncanakan";
+  }
 }

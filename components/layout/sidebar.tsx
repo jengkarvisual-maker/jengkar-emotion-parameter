@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, LayoutDashboard, Settings, Sparkles, Users } from "lucide-react";
+import { ArrowUpRight, BarChart3, LayoutDashboard, Settings, Sparkles, Users } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { APP_NAME } from "@/lib/constants";
+import { APP_NAME, INTERNAL_APP_LINKS } from "@/lib/constants";
 import { cn, getInitials } from "@/lib/utils";
 import { getNavigation } from "@/lib/navigation";
 import type { Role } from "@/lib/types";
@@ -98,6 +98,61 @@ export function Sidebar({ role, email, name }: SidebarProps) {
             })}
           </nav>
 
+          <div className="rounded-[24px] border border-border/70 bg-card/90 p-5">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-sm font-medium">Aplikasi Jengkar</p>
+              <Badge variant="outline">Lintas app</Badge>
+            </div>
+            <div className="mt-4 space-y-3">
+              {INTERNAL_APP_LINKS.map((app) => {
+                const statusVariant =
+                  app.status === "active"
+                    ? "success"
+                    : app.status === "setup"
+                      ? "warn"
+                      : "outline";
+
+                return app.href ? (
+                  <a
+                    key={app.name}
+                    href={app.href}
+                    className="block rounded-2xl border border-border/70 bg-background/75 px-4 py-3 transition hover:border-primary/25 hover:bg-primary/5"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-1">
+                        <p className="font-medium">{app.name}</p>
+                        <p className="text-xs text-muted-foreground">{app.domain}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge variant={statusVariant}>{getStatusLabel(app.status)}</Badge>
+                        <ArrowUpRight className="mt-0.5 size-4 text-muted-foreground" />
+                      </div>
+                    </div>
+                    <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                      {app.description}
+                    </p>
+                  </a>
+                ) : (
+                  <div
+                    key={app.name}
+                    className="rounded-2xl border border-dashed border-border/70 bg-muted/20 px-4 py-3"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-1">
+                        <p className="font-medium">{app.name}</p>
+                        <p className="text-xs text-muted-foreground">{app.domain}</p>
+                      </div>
+                      <Badge variant={statusVariant}>{getStatusLabel(app.status)}</Badge>
+                    </div>
+                    <p className="mt-2 text-xs leading-5 text-muted-foreground">
+                      {app.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           <div className="mt-auto rounded-[24px] border border-border/70 bg-card/90 p-5">
             <p className="text-sm font-medium">Catatan penting</p>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
@@ -139,8 +194,39 @@ export function Sidebar({ role, email, name }: SidebarProps) {
               );
             })}
           </div>
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {INTERNAL_APP_LINKS.map((app) =>
+              app.href ? (
+                <a
+                  key={app.name}
+                  href={app.href}
+                  className="whitespace-nowrap rounded-full border border-border bg-card/90 px-4 py-2 text-sm font-medium text-foreground transition hover:border-primary/25 hover:bg-primary/5"
+                >
+                  {app.name}
+                </a>
+              ) : (
+                <span
+                  key={app.name}
+                  className="whitespace-nowrap rounded-full border border-dashed border-border px-4 py-2 text-sm font-medium text-muted-foreground"
+                >
+                  {app.name} - segera
+                </span>
+              ),
+            )}
+          </div>
         </div>
       </div>
     </>
   );
+}
+
+function getStatusLabel(status: "active" | "setup" | "planned") {
+  switch (status) {
+    case "active":
+      return "Aktif";
+    case "setup":
+      return "Disiapkan";
+    case "planned":
+      return "Direncanakan";
+  }
 }

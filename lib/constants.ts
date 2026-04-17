@@ -1,6 +1,7 @@
 import type { AlignmentFeeling, DominantEmotion, Role, SessionType } from "@/lib/types";
 
 export const APP_NAME = "JEPAT";
+export const APP_DOMAIN = "https://rumahjengkar.com";
 
 export const DEMO_OWNER = {
   email: "owner@emotiontracker.local",
@@ -67,3 +68,35 @@ export const alignmentFeelingLabels: Record<AlignmentFeeling, string> = {
   NEUTRAL: "Netral",
   NOT_ALIGNED: "Tidak selaras",
 };
+
+export type InternalAppLink = {
+  name: string;
+  href: string | null;
+  domain: string;
+  description: string;
+  status: "active" | "setup" | "planned";
+};
+
+export const INTERNAL_APP_LINKS: InternalAppLink[] = [
+  {
+    name: "JEPAT",
+    href: APP_DOMAIN,
+    domain: "rumahjengkar.com",
+    description: "Pelacakan emosi, Human Design, dan rekomendasi reflektif tim.",
+    status: "active",
+  },
+  {
+    name: "Finance",
+    href: "https://jengkar-finance-nine.vercel.app/login",
+    domain: "finance.rumahjengkar.com",
+    description: "Aplikasi keuangan tim. Subdomain khusus sudah disiapkan di Vercel.",
+    status: "setup",
+  },
+  {
+    name: "SOP + KPI + Bonus",
+    href: null,
+    domain: "ops.rumahjengkar.com",
+    description: "Direncanakan untuk SOP, KPI, dan bonus tahunan setelah aplikasi ketiga siap.",
+    status: "planned",
+  },
+];
