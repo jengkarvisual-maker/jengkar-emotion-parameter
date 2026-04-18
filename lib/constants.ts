@@ -80,13 +80,6 @@ export type InternalAppLink = {
 
 export const INTERNAL_APP_LINKS: InternalAppLink[] = [
   {
-    name: "JEPAT",
-    href: APP_DOMAIN,
-    domain: "jepat.rumahjengkar.com",
-    description: "Pelacakan emosi, Human Design, dan rekomendasi reflektif tim.",
-    status: "active",
-  },
-  {
     name: "Finance",
     href: "https://finance.rumahjengkar.com",
     domain: "finance.rumahjengkar.com",

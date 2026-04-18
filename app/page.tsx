@@ -5,14 +5,13 @@ import {
   BadgeCheck,
   BriefcaseBusiness,
   ExternalLink,
-  HeartPulse,
   WalletCards,
   type LucideIcon,
 } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { getSession } from "@/lib/auth";
-import { APP_DOMAIN, APP_PORTAL_DOMAIN, INTERNAL_APP_LINKS } from "@/lib/constants";
+import { APP_PORTAL_DOMAIN, INTERNAL_APP_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 function normalizeHost(value: string | null) {
@@ -42,15 +41,6 @@ function getAppPresentation(appName: string): {
   accentClassName: string;
 } {
   switch (appName) {
-    case "JEPAT":
-      return {
-        Icon: HeartPulse,
-        category: "Wellbeing Tracker",
-        audience: "Owner dan member",
-        accessNote: "Masuk untuk log emosi dan Human Design",
-        accentClassName:
-          "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
-      };
     case "Finance":
       return {
         Icon: WalletCards,
@@ -94,7 +84,6 @@ export default async function HomePage() {
     redirect(session ? "/dashboard" : "/login");
   }
 
-  const appDomain = new URL(APP_DOMAIN).host;
   const activeApps = INTERNAL_APP_LINKS.filter((app) => app.status === "active");
   const quickAccessApps = activeApps.filter((app) => app.href);
 
@@ -113,9 +102,9 @@ export default async function HomePage() {
                 </h1>
                 <p className="max-w-3xl text-sm leading-7 text-muted-foreground md:text-base">
                   Gunakan halaman ini sebagai gerbang utama untuk menuju Jengkar
-                  Finance, JEPAT, dan aplikasi operasional KPI. Setiap aplikasi
-                  tetap berjalan di subdomainnya masing-masing agar akses tim lebih
-                  rapi, aman, dan mudah dibuka dari laptop maupun handphone.
+                  Finance dan aplikasi operasional KPI. Setiap aplikasi tetap
+                  berjalan di subdomainnya masing-masing agar akses tim lebih rapi,
+                  aman, dan mudah dibuka dari laptop maupun handphone.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -154,10 +143,13 @@ export default async function HomePage() {
                     </p>
                   </div>
                   <div className="rounded-2xl border border-border/70 bg-background/80 p-4">
-                    <p className="text-sm font-medium text-foreground">Aplikasi JEPAT</p>
-                    <p className="mt-1 font-mono text-sm text-foreground">{appDomain}</p>
+                    <p className="text-sm font-medium text-foreground">Aplikasi Finance</p>
+                    <p className="mt-1 font-mono text-sm text-foreground">
+                      finance.rumahjengkar.com
+                    </p>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                      Semua route aplikasi JEPAT tetap berjalan di subdomain ini.
+                      Subdomain ini dipakai untuk transaksi, laporan, dan alur
+                      keuangan internal Rumah Jengkar.
                     </p>
                   </div>
                   <div className="rounded-2xl border border-border/70 bg-background/80 p-4">
@@ -175,7 +167,7 @@ export default async function HomePage() {
             </div>
           </section>
 
-          <section className="grid gap-4 lg:grid-cols-3">
+          <section className="grid gap-4 lg:grid-cols-2">
             {INTERNAL_APP_LINKS.map((app) => {
               const presentation = getAppPresentation(app.name);
               const badgeStyles =
@@ -244,7 +236,7 @@ export default async function HomePage() {
                       <a
                         className={cn(
                           buttonVariants({
-                            variant: app.name === "JEPAT" ? "default" : "outline",
+                            variant: app.name === "Finance" ? "default" : "outline",
                           }),
                           "w-full justify-center",
                         )}
@@ -276,8 +268,8 @@ export default async function HomePage() {
           <div className="rounded-2xl border border-border/70 bg-card/70 p-4">
             <p className="font-medium text-foreground">Status saat ini</p>
             <p className="mt-2 leading-6">
-              {activeApps.length} aplikasi sudah aktif dan seluruh struktur tiga
-              aplikasi Rumah Jengkar kini bisa diakses dari portal utama ini.
+              {activeApps.length} aplikasi inti sudah aktif dan seluruh akses utama
+              Rumah Jengkar kini difokuskan ke Finance dan Jengkar KPI.
             </p>
           </div>
         </section>
