@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Source_Serif_4, Space_Grotesk } from "next/font/google";
 
 import "@/app/globals.css";
-import { APP_NAME } from "@/lib/constants";
-
 const fontSans = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -21,9 +19,9 @@ const fontMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: APP_NAME,
+  title: "Rumah Jengkar",
   description:
-    "Pelacakan kesadaran diri dan kesejahteraan tim untuk pola emosi harian serta ringkasan Human Design.",
+    "Portal utama untuk mengakses aplikasi internal Rumah Jengkar, termasuk Finance dan Jengkar KPI.",
 };
 
 export default function RootLayout({
